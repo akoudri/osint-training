@@ -3,6 +3,21 @@
 Twitter Network Crawler pour analyse Maltego
 Explore les relations sociales sur Twitter/X en profondeur
 Export CSV : qui parle avec qui et quand
+
+Usage:
+    python twitter_network_crawler.py <pseudo> [options]
+    python twitter_network_crawler.py wh1t3h4ts --depth 2 --relations 10
+
+Arguments:
+    pseudo              Compte Twitter de départ (sans @)
+
+Options:
+    -d, --depth         Profondeur d'exploration (défaut: 2)
+    -r, --relations     Nombre max de relations par nœud (défaut: 10)
+    -b, --browser       Navigateur à utiliser: chrome ou firefox (défaut: chrome)
+    --headless          Mode sans interface graphique
+    --no-profile        Ne pas utiliser le profil existant
+    -h, --help          Afficher cette aide
 """
 
 from selenium import webdriver
@@ -16,18 +31,16 @@ import random
 import csv
 import os
 import urllib.parse
+import sys
+import argparse
 from datetime import datetime
 from collections import deque
 
-# ========== CONFIGURATION ==========
+# ========== CONFIGURATION PAR DÉFAUT ==========
 
-# Compte de départ pour l'analyse
+# Ces valeurs peuvent être surchargées par les arguments CLI
 COMPTE_INITIAL = "wh1t3h4ts"  # Sans le @
-
-# Profondeur de l'exploration
 MAX_DEPTH = 2  # 0 = compte initial, 1 = relations directes, 2 = relations des relations
-
-# Nombre maximum de relations à explorer par nœud
 MAX_RELATIONS_PAR_NOEUD = 10
 
 # Navigateur
@@ -357,24 +370,133 @@ class TwitterNetworkCrawler:
                 self.driver.quit()
 
 
+# ========== PARSING DES ARGUMENTS ==========
+
+def parse_arguments():
+    """Parse les arguments de ligne de commande"""
+    parser = argparse.ArgumentParser(
+        description="Twitter Network Crawler - Analyse de réseaux sociaux pour Maltego",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Exemples d'utilisation:
+  python twitter_network_crawler.py wh1t3h4ts
+  python twitter_network_crawler.py elonmusk --depth 3 --relations 15
+  python twitter_network_crawler.py alice --depth 1 --relations 20 --browser firefox
+  python twitter_network_crawler.py bob --headless --no-profile
+
+Pour plus d'informations, consultez MALTEGO_IMPORT_GUIDE.md
+        """
+    )
+
+    parser.add_argument(
+        'pseudo',
+        type=str,
+        help='Compte Twitter de départ (sans @)'
+    )
+
+    parser.add_argument(
+        '-d', '--depth',
+        type=int,
+        default=MAX_DEPTH,
+        metavar='N',
+        help=f'Profondeur d\'exploration (défaut: {MAX_DEPTH})'
+    )
+
+    parser.add_argument(
+        '-r', '--relations',
+        type=int,
+        default=MAX_RELATIONS_PAR_NOEUD,
+        metavar='N',
+        help=f'Nombre max de relations par nœud (défaut: {MAX_RELATIONS_PAR_NOEUD})'
+    )
+
+    parser.add_argument(
+        '-b', '--browser',
+        type=str,
+        choices=['chrome', 'firefox'],
+        default=BROWSER,
+        help=f'Navigateur à utiliser (défaut: {BROWSER})'
+    )
+
+    parser.add_argument(
+        '--headless',
+        action='store_true',
+        help='Mode sans interface graphique'
+    )
+
+    parser.add_argument(
+        '--no-profile',
+        action='store_true',
+        help='Ne pas utiliser le profil existant'
+    )
+
+    parser.add_argument(
+        '--delai-min',
+        type=int,
+        default=DELAI_MIN_ENTRE_PROFILS,
+        metavar='S',
+        help=f'Délai minimum entre profils en secondes (défaut: {DELAI_MIN_ENTRE_PROFILS})'
+    )
+
+    parser.add_argument(
+        '--delai-max',
+        type=int,
+        default=DELAI_MAX_ENTRE_PROFILS,
+        metavar='S',
+        help=f'Délai maximum entre profils en secondes (défaut: {DELAI_MAX_ENTRE_PROFILS})'
+    )
+
+    return parser.parse_args()
+
+
 # ========== EXÉCUTION ==========
 
 if __name__ == "__main__":
+    # Parser les arguments
+    args = parse_arguments()
+
+    # Surcharger les variables globales avec les arguments CLI
+    COMPTE_INITIAL = args.pseudo.replace('@', '')  # Enlever @ si présent
+    MAX_DEPTH = args.depth
+    MAX_RELATIONS_PAR_NOEUD = args.relations
+    BROWSER = args.browser
+    HEADLESS = args.headless
+    USE_EXISTING_PROFILE = not args.no_profile
+    DELAI_MIN_ENTRE_PROFILS = args.delai_min
+    DELAI_MAX_ENTRE_PROFILS = args.delai_max
+
+    # Affichage
     print("╔══════════════════════════════════════════════════════════════════════════════╗")
     print("║           TWITTER NETWORK CRAWLER - Analyse pour Maltego                    ║")
     print("╚══════════════════════════════════════════════════════════════════════════════╝\n")
 
     print(f"📊 Configuration :")
     print(f"   Compte initial : @{COMPTE_INITIAL}")
-    print(f"   Profondeur : {MAX_DEPTH}")
+    print(f"   Profondeur : {MAX_DEPTH} niveau{'x' if MAX_DEPTH > 1 else ''}")
     print(f"   Relations max/nœud : {MAX_RELATIONS_PAR_NOEUD}")
     print(f"   Navigateur : {BROWSER.upper()}")
-    print(f"   Délais anti-détection : {DELAI_MIN_ENTRE_ACTIONS}-{DELAI_MAX_ENTRE_ACTIONS}s\n")
+    print(f"   Mode headless : {'OUI' if HEADLESS else 'NON'}")
+    print(f"   Profil existant : {'OUI' if USE_EXISTING_PROFILE else 'NON'}")
+    print(f"   Délais anti-détection : {DELAI_MIN_ENTRE_ACTIONS}-{DELAI_MAX_ENTRE_ACTIONS}s")
+    print(f"   Délais entre profils : {DELAI_MIN_ENTRE_PROFILS}-{DELAI_MAX_ENTRE_PROFILS}s\n")
+
+    # Estimation du nombre de comptes
+    if MAX_DEPTH == 0:
+        estimation = 1
+    elif MAX_DEPTH == 1:
+        estimation = 1 + MAX_RELATIONS_PAR_NOEUD
+    elif MAX_DEPTH == 2:
+        estimation = 1 + MAX_RELATIONS_PAR_NOEUD + (MAX_RELATIONS_PAR_NOEUD * MAX_RELATIONS_PAR_NOEUD)
+    else:
+        estimation = "100+"
+
+    print(f"📈 Estimation : ~{estimation} compte{'s' if estimation != 1 else ''} à explorer")
+    print(f"⏱️  Temps estimé : {estimation * DELAI_MIN_ENTRE_PROFILS // 60}-{estimation * DELAI_MAX_ENTRE_PROFILS // 60} minutes\n")
 
     confirmation = input("Voulez-vous continuer ? (o/N) : ")
     if confirmation.lower() not in ['o', 'y', 'oui', 'yes']:
         print("❌ Annulé")
-        exit(0)
+        sys.exit(0)
 
     crawler = TwitterNetworkCrawler()
     crawler.run()
