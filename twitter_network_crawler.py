@@ -55,7 +55,7 @@ DELAI_MIN_ENTRE_PROFILS = 5
 DELAI_MAX_ENTRE_PROFILS = 10
 
 # Fichiers de sortie
-CSV_RELATIONS = "twitter_network_relations.csv"
+CSV_RELATIONS = "reseau_x.csv"
 CSV_NOEUDS = "twitter_network_noeuds.csv"
 LOG_FILE = "twitter_network_log.txt"
 

@@ -40,7 +40,7 @@ if [ -f "twitter_network_relations.csv" ] || [ -f "twitter_network_noeuds.csv" ]
     read -p "🗑️  Supprimer les anciens CSV ? (o/N) " -n 1 -r
     echo
     if [[ $REPLY =~ ^[OoYy]$ ]]; then
-        rm -f twitter_network_relations.csv twitter_network_noeuds.csv twitter_network_log.txt
+        rm -f reseau_x.csv twitter_network_noeuds.csv twitter_network_log.txt
         echo "   ✅ Fichiers supprimés"
     fi
 fi
@@ -65,7 +65,7 @@ echo "╚═══════════════════════�
 if [ $EXIT_CODE -eq 0 ]; then
     echo ""
     if [ -f "twitter_network_relations.csv" ]; then
-        LINES=$(wc -l < twitter_network_relations.csv)
+        LINES=$(wc -l < reseau_x.csv)
         echo "✅ Exploration terminée avec succès"
         echo ""
         echo "📊 Fichiers générés :"
