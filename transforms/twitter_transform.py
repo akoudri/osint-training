@@ -57,7 +57,7 @@ def main():
                 "Erreur: Aucun argument reçu. Utilisez: python twitter_transform.py <alias>",
                 messageType="FatalError"
             )
-            response.returnOutput()
+            print(response.returnOutput())
             sys.exit(1)
 
         input_alias = sys.argv[1]
@@ -77,7 +77,7 @@ def main():
                     messageType="Inform"
                 )
             else:
-                response.returnOutput()
+                print(response.returnOutput())
                 sys.exit(1)
         else:
             # Message de succès
@@ -119,7 +119,7 @@ def main():
         )
 
         # 7. Envoi du résultat à Maltego (STDOUT)
-        response.returnOutput()
+        print(response.returnOutput())
 
     except Exception as e:
         # Gestion d'erreur globale
@@ -127,7 +127,7 @@ def main():
             f"Erreur inattendue: {str(e)}",
             messageType="FatalError"
         )
-        response.returnOutput()
+        print(response.returnOutput())
         sys.exit(1)
 
 if __name__ == "__main__":

@@ -10,13 +10,14 @@ Formation pratique aux techniques de collecte de données OSINT (Open Source Int
 
 ## 📚 Vue d'ensemble
 
-Ce dépôt contient trois scripts d'apprentissage pour la collecte de données OSINT :
+Ce dépôt contient des scripts d'apprentissage pour la collecte de données OSINT et l'intégration avec Maltego :
 
 | Script | Type | Technique | Niveau |
 |--------|------|-----------|--------|
 | `static_scraping.py` | Scraping HTTP | BeautifulSoup + Requests | Débutant |
 | `dynamic_scraping.py` | Scraping dynamique | Selenium + Authentication | Intermédiaire |
 | `twitter_extractor.py` | Extraction sociale | Selenium + Twitter Dorking | Avancé |
+| **`transforms/twitter_transform.py`** | **Maltego Transform** | **Twitter OSINT** | **Intermédiaire** |
 
 ---
 
@@ -134,21 +135,68 @@ REQUETE_BRUTE = "(from:username OR to:username) -filter:links"
 
 ---
 
+### 4️⃣ Maltego Twitter Transform (`transforms/twitter_transform.py`) ⭐ NOUVEAU
+
+**Objectif :** Intégration OSINT dans Maltego pour investigation Twitter/X
+
+**Fonctionnalités :**
+- ✅ Validation stricte des alias Twitter (règles officielles)
+- ✅ Nettoyage automatique (@, espaces)
+- ✅ Métadonnées OSINT enrichies (4 URLs additionnelles)
+- ✅ Gestion d'erreurs professionnelle
+- ✅ 17 tests unitaires (100% pass)
+
+**Configuration rapide :**
+```bash
+# Afficher les chemins pour Maltego
+./show_maltego_paths.sh
+
+# Puis suivre le guide : MALTEGO_QUICKSTART.md
+```
+
+**Documentation :**
+- 🚀 **Guide rapide** : [MALTEGO_QUICKSTART.md](MALTEGO_QUICKSTART.md) - 5 minutes
+- 📖 **Configuration détaillée** : [MALTEGO_CONFIG_DIRECT.md](MALTEGO_CONFIG_DIRECT.md)
+- 🔧 **Technique** : [MALTEGO_TWITTER_TRANSFORM.md](MALTEGO_TWITTER_TRANSFORM.md)
+
+**Utilisation dans Maltego :**
+```
+[Phrase: "elonmusk"]
+  → TwitterAliasToProfileURL
+  → [URL: https://x.com/elonmusk + métadonnées OSINT]
+```
+
+---
+
 ## 📁 Structure du projet
 
 ```
 osint-training/
-├── .venv/                          # Environnement virtuel Python
-├── static_scraping.py              # Script 1 : Scraping HTTP
-├── dynamic_scraping.py             # Script 2 : Selenium + Auth
-├── twitter_extractor.py            # Script 3 : Twitter/X extraction
-├── requirements.txt                # Dépendances Python
-├── resultats_quotes.csv            # Données extraites (généré)
-├── README.md                       # Ce fichier
-├── INSTALLATION.md                 # Guide d'installation détaillé
-├── CLAUDE.md                       # Documentation pour Claude Code
-├── TWITTER_EXTRACTOR_GUIDE.md      # Guide Twitter détaillé
-└── CORRECTIONS_TWITTER_EXTRACTOR.md # Détail des corrections v2.0
+├── .venv/                              # Environnement virtuel Python
+├── static_scraping.py                  # Script 1 : Scraping HTTP
+├── dynamic_scraping.py                 # Script 2 : Selenium + Auth
+├── twitter_extractor.py                # Script 3 : Twitter/X extraction
+├── transforms/                         # ⭐ NOUVEAU : Maltego transforms
+│   ├── __init__.py                     # Module Python
+│   ├── twitter_transform.py            # Transform principale
+│   ├── transform_config.py             # Config TRX/API
+│   ├── server.py                       # Serveur Flask (optionnel)
+│   ├── run_transform.sh                # Wrapper pour venv
+│   └── README.md                       # Documentation technique
+├── test_twitter_transform.py           # Tests unitaires (17 tests)
+├── demo_transform.py                   # Script de démonstration
+├── show_maltego_paths.sh               # Affiche chemins Maltego
+├── start_maltego_server.sh             # Démarrage serveur Flask
+├── requirements.txt                    # Dépendances Python
+├── resultats_quotes.csv                # Données extraites (généré)
+├── README.md                           # Ce fichier
+├── MALTEGO_QUICKSTART.md               # Guide rapide Maltego (5 min)
+├── MALTEGO_CONFIG_DIRECT.md            # Config détaillée Maltego
+├── MALTEGO_TWITTER_TRANSFORM.md        # Documentation technique
+├── TRANSFORM_SUMMARY.md                # Récapitulatif développeur
+├── CLAUDE.md                           # Documentation pour Claude Code
+├── TWITTER_EXTRACTOR_GUIDE.md          # Guide Twitter détaillé
+└── CORRECTIONS_TWITTER_EXTRACTOR.md    # Détail des corrections v2.0
 ```
 
 ---
@@ -160,11 +208,14 @@ requests==2.32.5          # Client HTTP
 beautifulsoup4==4.14.2    # Parser HTML
 pandas==2.3.3             # Manipulation de données
 selenium==4.38.0          # Automation navigateur
+maltego-trx==1.6.1        # ⭐ Framework Maltego transforms
+pytest==9.0.1             # Tests unitaires
 ```
 
 **Dépendances système :**
 - Firefox (navigateur)
 - geckodriver (pilote Selenium)
+- Maltego CE/Classic (pour l'intégration OSINT - optionnel)
 
 ---
 
@@ -172,6 +223,12 @@ selenium==4.38.0          # Automation navigateur
 
 | Fichier | Description |
 |---------|-------------|
+| **Maltego Transforms** | |
+| [MALTEGO_QUICKSTART.md](MALTEGO_QUICKSTART.md) | ⭐ Guide rapide (5 min) - configuration Maltego |
+| [MALTEGO_CONFIG_DIRECT.md](MALTEGO_CONFIG_DIRECT.md) | Configuration détaillée + dépannage |
+| [MALTEGO_TWITTER_TRANSFORM.md](MALTEGO_TWITTER_TRANSFORM.md) | Documentation technique complète |
+| [TRANSFORM_SUMMARY.md](TRANSFORM_SUMMARY.md) | Récapitulatif développeur |
+| **Scripts OSINT** | |
 | [INSTALLATION.md](docs/INSTALLATION.md) | Installation complète sur nouvelle machine |
 | [TWITTER_EXTRACTOR_GUIDE.md](docs/TWITTER_EXTRACTOR_GUIDE.md) | Guide complet Twitter/X avec syntaxe dorking |
 | [CORRECTIONS_TWITTER_EXTRACTOR.md](docs/CORRECTIONS_TWITTER_EXTRACTOR.md) | Détail des corrections v2.0 |
