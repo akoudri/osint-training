@@ -1,0 +1,71 @@
+Delivered-To: victime@entreprise-cible.com
+Received: from mail-relay.unknown-isp.net (mail-relay.unknown-isp.net [45.13.22.11])
+        by mx.google.com with ESMTPS id xxxxxxxxxxxxxx
+        for <victime@entreprise-cible.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Nov 2025 08:45:12 +0100 (CET)
+Authentication-Results: mx.google.com;
+       spf=softfail (google.com: domain of transitioning admin@upskillforge.com does not designate 45.13.22.11 as permitted sender) smtp.mailfrom=admin@upskillforge.com;
+       dkim=none
+Return-Path: <admin@upskillforge.com>
+Received: from upskillforge.com (upskillforge.com 34.204.186.209)
+        by mail-relay.unknown-isp.net with ESMTP id 4A2B9C
+        for <victime@entreprise-cible.com>;
+        Fri, 28 Nov 2025 08:45:01 +0100 (CET)
+Message-ID: <202511280845.A3F9921@upskillforge.com>
+X-Mailer: PHP/8.1 (MassMailer Script v2.0)
+X-Originating-IP: [10.0.0.42]
+From: "Apple Store - Service Client" <noreply@apple-secure-notifications.com>
+To: "Client Privilégié" <victime@entreprise-cible.com>
+Subject: URGENT: Confirmation de votre commande Phone X (Action Requise)
+Date: Fri, 28 Nov 2025 08:45:00 +0100
+MIME-Version: 1.0
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .btn { background-color: #0071e3; color: white; padding: 12px 24px; text-decoration: none; border-radius: 18px; font-weight: bold; }
+  .container { max-width: 600px; margin: 0 auto; border: 1px solid #ddd; padding: 20px; border-radius: 10px; }
+  .header { text-align: center; margin-bottom: 30px; }
+  .alert { color: #d60000; font-weight: bold; }
+</style>
+</head>
+<body>
+  <div class=3D"container">
+    <div class=3D"header">
+      <h2 style=3D"color: #333;">Confirmation de commande en attente</h2>
+    </div>
+   =20
+    <p>Bonjour,</p>
+   =20
+    <p>Nous avons re=C3=A7u une demande de r=C3=A9servation pour le nouveau <strong>Phone X Pro</strong> =C3=A0 votre nom.</p>
+   =20
+    <p>En raison d'une erreur de traitement bancaire, votre paiement de <span class=3D"alert">99,00 =E2=82=AC</span> n'a pas pu =C3=AAtre finalis=C3=A9. Votre r=C3=A9servation expire dans exactement <strong>2 heures</strong>.</p>
+   =20
+    <p>Si vous ne finalisez pas la commande maintenant, le produit sera remis en stock public au prix normal de 1200=E2=82=AC.</p>
+   =20
+    <br>
+    <div style=3D"text-align: center; margin: 30px 0;">
+      <a href=3D"https://upskillforge.com/?ref=3Demail_campaign_nov25" class=3D"btn">
+        Finaliser ma commande sur Apple.com
+      </a>
+    </div>
+    <br>
+   =20
+    <p style=3D"font-size: 12px; color: #888;">
+      Identifiant de transaction: <a href=3D"https://upskillforge.com/track/8821">TRX-8821-FR</a><br>
+      IP de demande: 192.168.1.105
+    </p>
+   =20
+    <hr>
+    <p style=3D"font-size: 10px; color: #aaa; text-align: center;">
+      Apple Distribution International Ltd. Hollyhill Industrial Estate, Cork, Ireland.<br>
+      Ne pas r=C3=A9pondre =C3=A0 cet email.
+    </p>
+  </div>
+</body>
+</html>
