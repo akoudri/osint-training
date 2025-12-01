@@ -55,7 +55,7 @@ Si vous voyez ce XML, le script fonctionne correctement.
 
 **Solution :**
 ```bash
-chmod +x /home/ali/Training/osint-training/transforms/run_transform.sh
+chmod +x /home/admin/Training/osint-training/transforms/run_transform.sh
 ```
 
 ### 2. "No module named maltego_trx"
@@ -82,7 +82,7 @@ a) **Alias invalide**
 
 b) **Script non exécutable**
 ```bash
-chmod +x /home/ali/Training/osint-training/transforms/run_transform.sh
+chmod +x /home/admin/Training/osint-training/transforms/run_transform.sh
 ```
 
 c) **Chemin incorrect dans Maltego**
@@ -103,7 +103,7 @@ Vérifier que le chemin dans Maltego est correct :
 ```
 
 Configuration Maltego :
-- **Command** : `/home/ali/Training/osint-training/transforms/run_transform.sh` (chemin absolu)
+- **Command** : `/home/admin/Training/osint-training/transforms/run_transform.sh` (chemin absolu)
 - **NOT** : `~/Training/osint-training/...` (chemin avec ~)
 - **NOT** : `transforms/run_transform.sh` (chemin relatif)
 
@@ -131,7 +131,7 @@ sed -i 's/\r$//' transforms/run_transform.sh
 # Vérifier quel Python est utilisé
 source .venv/bin/activate
 which python
-# Doit afficher: /home/ali/Training/osint-training/.venv/bin/python
+# Doit afficher: /home/admin/Training/osint-training/.venv/bin/python
 
 python -c "import maltego_trx; print('OK')"
 # Doit afficher: OK

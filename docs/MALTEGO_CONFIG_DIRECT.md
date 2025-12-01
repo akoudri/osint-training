@@ -24,7 +24,7 @@ Si cela fonctionne sans erreur, passez à l'étape suivante.
 ```bash
 # Chemin absolu vers le wrapper
 readlink -f transforms/run_transform.sh
-# Résultat : /home/ali/Training/osint-training/transforms/run_transform.sh
+# Résultat : /home/admin/Training/osint-training/transforms/run_transform.sh
 ```
 
 **Notez ce chemin**, vous en aurez besoin dans Maltego.
@@ -45,9 +45,9 @@ readlink -f transforms/run_transform.sh
 4. **Cliquer sur Next**
 
 5. **Command line** :
-   - **Command** : `/home/ali/Training/osint-training/transforms/run_transform.sh`
+   - **Command** : `/home/admin/Training/osint-training/transforms/run_transform.sh`
    - **Parameters** : (laisser vide - le wrapper gère tout)
-   - **Working directory** : `/home/ali/Training/osint-training`
+   - **Working directory** : `/home/admin/Training/osint-training`
 
 6. **Cliquer sur Next** → **Finish**
 
@@ -83,7 +83,7 @@ readlink -f transforms/run_transform.sh
 #### Erreur : "Permission denied"
 
 ```bash
-chmod +x /home/ali/Training/osint-training/transforms/run_transform.sh
+chmod +x /home/admin/Training/osint-training/transforms/run_transform.sh
 ```
 
 #### Erreur : "No module named maltego_trx"
@@ -105,7 +105,7 @@ pip install maltego-trx
 #### Erreur : "Command not found"
 
 Vérifiez que le chemin dans Maltego est **absolu** :
-- ✅ `/home/ali/Training/osint-training/transforms/run_transform.sh`
+- ✅ `/home/admin/Training/osint-training/transforms/run_transform.sh`
 - ❌ `transforms/run_transform.sh`
 - ❌ `~/Training/osint-training/transforms/run_transform.sh`
 
@@ -141,7 +141,7 @@ sudo pip install maltego-trx
 
 Puis dans Maltego :
 - **Command** : `/usr/bin/python3`
-- **Parameters** : `/home/ali/Training/osint-training/transforms/twitter_transform.py`
+- **Parameters** : `/home/admin/Training/osint-training/transforms/twitter_transform.py`
 
 ### ✅ Option 2 : Installation utilisateur (sans sudo)
 
@@ -155,7 +155,7 @@ python3 -c "import maltego_trx; print('OK')"
 
 Puis dans Maltego :
 - **Command** : `/usr/bin/python3`
-- **Parameters** : `/home/ali/Training/osint-training/transforms/twitter_transform.py`
+- **Parameters** : `/home/admin/Training/osint-training/transforms/twitter_transform.py`
 
 ## Configuration avancée
 

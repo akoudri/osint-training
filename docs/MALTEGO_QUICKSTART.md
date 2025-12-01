@@ -40,13 +40,13 @@ Cliquer sur **Next** →
 
 ```
 Command:
-/home/ali/Training/osint-training/transforms/run_transform.sh
+/home/admin/Training/osint-training/transforms/run_transform.sh
 
 Parameters:
 (laisser vide)
 
 Working directory:
-/home/ali/Training/osint-training
+/home/admin/Training/osint-training
 ```
 
 Cliquer sur **Next** → **Finish**
@@ -139,7 +139,7 @@ Pour chaque URL créée, **cliquer sur l'entité** puis consulter :
 
 ### "Permission denied"
 ```bash
-chmod +x /home/ali/Training/osint-training/transforms/run_transform.sh
+chmod +x /home/admin/Training/osint-training/transforms/run_transform.sh
 ```
 
 ### "No module named maltego_trx"

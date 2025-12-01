@@ -1,14 +1,5 @@
 # Installation de chromedriver - Guide rapide
 
-## Situation actuelle
-
-✅ Chrome installé : **Google Chrome 142.0.7444.162**
-✅ Profil Chrome trouvé : `/home/ali/.config/google-chrome`
-✅ Selenium installé : **4.38.0**
-❌ **chromedriver manquant**
-
----
-
 ## 🚀 Solution rapide (2 minutes)
 
 ### Option 1 : Installation via apt (RECOMMANDÉ)
