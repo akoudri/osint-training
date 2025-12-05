@@ -1,9 +1,37 @@
 version: '3.8'
 
 services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: always
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - ai_network
+
+  anythingllm:
+    image: mintplexlabs/anythingllm:master
+    container_name: anythingllm
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - SERVER_PORT=3001
+      - STORAGE_DIR=/app/server/storage
+    volumes:
+      - anythingllm_data:/app/server/storage
+      - ./shared:/app/server/storage/shared_data
+    networks:
+      - ai_network
+    depends_on:
+      - ollama
+
   n8n:
     image: n8nio/n8n:latest
-    container_name: n8n_osint_monitor
+    container_name: n8n
     restart: always
     ports:
       - "5678:5678"
@@ -20,11 +48,14 @@ services:
     # Commande optionnelle pour lancer le tunnel directement si besoin :
     # command: /bin/sh -c "n8n start --tunnel"
     networks:
-      - osint_network
-    
+      - ai_network
+
 volumes:
   n8n_data:
+  ollama_data:
+  anythingllm_data:
+
 
 networks:
-  osint_network:
+  ai_network:
     driver: bridge
