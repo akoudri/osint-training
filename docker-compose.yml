@@ -38,10 +38,10 @@ services:
     environment:
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=admin
-      - N8N_BASIC_AUTH_PASSWORD=ChangeMePlease! # Pensez à mettre un mot de passe fort
+      - N8N_BASIC_AUTH_PASSWORD=ChangeMePlease! # To be changed
       - GENERIC_TIMEZONE=Europe/Paris # Important pour la synchro des logs et CRON 
       - TZ=Europe/Paris
-      # Pour activer le tunnel n8n (utile si vous devez recevoir des Webhooks externes plus tard)
+      # Pour activer le tunnel n8n (pour recevoir des Webhooks externes plus tard)
       # - N8N_TUNNEL_SUBDOMAIN=mon-osint-local 
     volumes:
       - n8n_data:/home/node/.n8n
